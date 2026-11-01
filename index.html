@@ -257,7 +257,7 @@
                             <span data-en="Presentation Video" data-fr="Vidéo de présentation">Vidéo de présentation</span>
                         </h2>
                         <p class="text-xs sm:text-sm text-slate-400 mt-1" data-en="Watch my presentation video." data-fr="Visionnez ma vidéo de présentation.">
-                            Visionnez ma vidéo de présentation ou chargez directement un fichier vidéo depuis votre ordinateur.
+                            Visionnez ma vidéo de présentation ci-dessous.
                         </p>
                     </div>
                     <div class="flex items-center gap-2">
@@ -269,18 +269,10 @@
                     </div>
                 </div>
 
-                <!-- Video Player Box / Embed Slot -->
-                <div class="relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 aspect-video flex flex-col items-center justify-center p-6 text-center group">
-                    <video id="portfolio-video-player" controls class="hidden w-full h-full object-contain bg-black"></video>
-                    <div id="video-placeholder-content" class="flex flex-col items-center justify-center">
-                        <div class="w-16 h-16 rounded-full bg-sky-500/20 border border-sky-400/50 flex items-center justify-center text-sky-400 group-hover:scale-110 group-hover:bg-sky-500 group-hover:text-white transition duration-300 mb-3">
-                            <i class="fa-solid fa-play text-2xl ml-1"></i>
-                        </div>
-                        <p class="text-base font-semibold text-white" data-en="Presentation Video Player" data-fr="Lecteur vidéo de présentation">Lecteur vidéo de présentation</p>
-                        <p class="text-xs text-slate-400 mt-1 max-w-md" data-en="Click 'Load Video File' above to preview a local MP4/WebM video, or embed your video link in the code." data-fr="Cliquez sur « Charger une vidéo » ci-dessus pour lire un fichier vidéo local, ou intégrez votre lien vidéo dans le code.">
-                            Cliquez sur « Charger une vidéo » ci-dessus pour lire un fichier vidéo local, ou intégrez votre lien vidéo dans le code.
-                        </p>
-                    </div>
+                <!-- Embedded YouTube Shorts Player Container -->
+                <div class="relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 flex flex-col items-center justify-center p-4">
+                    <iframe id="youtube-iframe" class="w-full max-w-[360px] aspect-[9/16] rounded-xl shadow-lg border border-slate-800" src="https://www.youtube.com/embed/-RLmuYNbQsE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <video id="portfolio-video-player" controls class="hidden w-full h-full object-contain bg-black rounded-xl"></video>
                 </div>
 
                 <!-- Quick Navigation Across the 6 N7 Portfolio Tabs -->
@@ -383,7 +375,7 @@
                             </div>
                             <p class="text-xs sm:text-sm text-slate-300 leading-relaxed"
                                data-en="Demonstrated boundary layer reattachment and up to 14–18% reduction in pressure drag for optimal jet momentum coefficients. Confirmed my interest in numerical simulation and led directly to my choice of the MF2E department at ENSEEIHT."
-                               data-fr="Mise en évidence du recollement partiel de l'écoulement et d'une réduction de 14 à 18% de la traînée pour des vitesses d'injection optimales. Ce projet a confirmé mon intérêt pour la simulation numérique et mon choix du département MF2E à l'N7.">
+                               data-fr="Mise en évidence du recollement partiel de l'écoulement et d'une réduction de 14 à 18% de la traînée pour des vitesses d'injection optimales. Ce projet a confirmed mon intérêt pour la simulation numérique et mon choix du département MF2E à l'N7.">
                                 Mise en évidence du recollement partiel de l'écoulement et d'une réduction de 14 à 18% de la traînée pour des vitesses d'injection optimales. Ce projet a confirmé mon intérêt pour la simulation numérique et mon choix du département MF2E à l'N7.
                             </p>
                         </div>
@@ -1362,7 +1354,7 @@
         function savePersonalInfo() {
             const lastname = document.getElementById('input-lastname').value.trim() || 'BIENVENU';
             const email = document.getElementById('input-email').value.trim();
-            const phone = document.getElementById('input-phone').value.trim();
+            const phone = document.getElementById('input-[#input-phone]').value.trim();
             const linkedin = document.getElementById('input-linkedin').value.trim();
 
             document.querySelectorAll('.user-lastname').forEach(el => el.textContent = lastname);
@@ -1393,10 +1385,13 @@
             if (!file) return;
             const videoUrl = URL.createObjectURL(file);
             const videoPlayer = document.getElementById('portfolio-video-player');
-            const placeholder = document.getElementById('video-placeholder-content');
+            const youtubeIframe = document.getElementById('youtube-iframe');
+            
             videoPlayer.src = videoUrl;
             videoPlayer.classList.remove('hidden');
-            placeholder.classList.add('hidden');
+            if (youtubeIframe) {
+                youtubeIframe.classList.add('hidden');
+            }
         }
     </script>
 </body>
